@@ -51,7 +51,7 @@ body {
   }
 
   .big-title {
-    @apply text-[clamp(3.5rem,9vw,9.5rem)] font-black leading-[0.9] tracking-normal text-replica-ink;
+    @apply text-[clamp(3.5rem,9vw,9.5rem)] font-black leading-[0.96] tracking-normal text-replica-ink;
   }
 
   .section-title {
@@ -81,7 +81,8 @@ body {
 }
 
 .word-mask {
-  overflow: hidden;
+  overflow: visible;
+  padding-bottom: 0.18em;
 }
 
 .marquee-track {

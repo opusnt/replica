@@ -340,11 +340,11 @@ function RotatingSignals() {
   }, []);
 
   return (
-    <div className="relative mt-7 h-[clamp(3rem,7vw,6.5rem)] overflow-hidden">
+    <div className="relative mt-7 h-[clamp(3.6rem,7.8vw,7.2rem)] overflow-hidden pb-[0.18em]">
       <AnimatePresence mode="wait">
         <motion.span
           key={signals[activeSignal]}
-          className="absolute left-0 top-0 text-[clamp(3rem,7vw,6.5rem)] font-black leading-none text-replica-green"
+          className="absolute left-0 top-0 text-[clamp(3rem,7vw,6.5rem)] font-black leading-[0.98] text-replica-green"
           initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
           animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
           exit={{ y: "-100%", opacity: 0, filter: "blur(8px)" }}
@@ -375,8 +375,6 @@ function HeroVisual() {
   const layerOneY = useTransform(smoothY, [-0.5, 0.5], [-14, 14]);
   const layerTwoX = useTransform(smoothX, [-0.5, 0.5], [22, -22]);
   const layerTwoY = useTransform(smoothY, [-0.5, 0.5], [18, -18]);
-  const markX = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
-  const markY = useTransform(smoothY, [-0.5, 0.5], [-8, 8]);
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -393,27 +391,21 @@ function HeroVisual() {
         mouseY.set(0);
       }}
       style={{ y, rotate, rotateX, rotateY, transformPerspective: 1000 }}
-      className="relative min-h-[520px] overflow-hidden rounded-[18px] border border-replica-line bg-replica-card shadow-soft md:min-h-[680px]"
+      className="relative min-h-[520px] overflow-hidden rounded-[18px] border border-replica-line bg-replica-accent shadow-soft md:min-h-[680px]"
     >
-      <div className="absolute inset-0 kinetic-grid opacity-80" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(182,209,205,0.42),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.94),rgba(238,245,243,0.62))]" />
+      <div className="absolute inset-0 kinetic-grid opacity-20 mix-blend-screen" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,rgba(182,209,205,0.42),transparent_28%),radial-gradient(circle_at_12%_82%,rgba(201,138,0,0.20),transparent_24%),linear-gradient(135deg,rgba(47,79,74,0.98),rgba(31,36,35,0.92))]" />
       <motion.div
-        className="absolute -right-16 top-10 h-72 w-72 rounded-full bg-replica-green/80 blur-3xl"
+        className="absolute -right-24 top-12 h-80 w-80 rounded-full bg-replica-green/60 blur-3xl"
         animate={{ scale: [1, 1.18, 1], x: [0, -22, 0], y: [0, 18, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="absolute left-8 top-8 opacity-[0.08]"
-        style={{ x: markX, y: markY }}
-      >
-        <ReplicaLogo size="hero" />
-      </motion.div>
 
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <motion.path
-          d="M18 28 C35 18 45 42 52 50 C64 65 76 58 84 72"
+          d="M8 32 C28 14 42 45 53 51 C66 60 78 50 94 70"
           fill="none"
-          stroke="rgba(47,79,74,0.18)"
+          stroke="rgba(255,255,255,0.18)"
           strokeWidth="0.32"
           strokeDasharray="1.2 1.2"
           initial={{ pathLength: 0 }}
@@ -421,7 +413,7 @@ function HeroVisual() {
           transition={{ duration: 2.2, delay: 0.4, ease: "easeInOut" }}
         />
         <motion.path
-          d="M22 76 C36 62 42 72 54 48 C62 32 74 28 86 22"
+          d="M10 82 C24 64 41 75 53 49 C63 28 78 30 92 18"
           fill="none"
           stroke="rgba(201,138,0,0.28)"
           strokeWidth="0.3"
@@ -433,83 +425,53 @@ function HeroVisual() {
       </svg>
 
       <motion.div
-        className="absolute left-6 top-24 w-[48%] min-w-[230px] border border-replica-line bg-white/82 p-5 backdrop-blur"
+        className="absolute left-6 top-24 z-20 max-w-[620px] md:left-10 md:top-28"
         style={{ x: layerOneX, y: layerOneY }}
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="mb-12 flex items-center justify-between">
-          <span className="label">Estrategia</span>
-          <span className="text-xs font-black text-[#C98A00]">01</span>
-        </div>
-        <p className="text-2xl font-black leading-tight text-replica-accent">Ordenamos la historia antes de amplificarla.</p>
-      </motion.div>
-
-      <motion.div
-        className="absolute right-8 top-16 hidden w-[38%] border border-replica-line bg-replica-accent p-5 text-white backdrop-blur md:block"
-        style={{ x: layerTwoX, y: layerTwoY }}
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="mb-10 flex items-center justify-between text-xs font-bold uppercase text-white/55">
-          <span>Preguntamos</span>
-          <span>01</span>
-        </div>
-        <p className="text-[clamp(2.2rem,4.8vw,4.8rem)] font-black leading-[0.95]">
-          Antes de proponer, entendemos.
+        <p className="text-[clamp(3.7rem,7vw,6.3rem)] font-black leading-[0.8] text-white">
+          Menos ruido.
+        </p>
+        <p className="text-[clamp(3.7rem,7vw,6.3rem)] font-black leading-[0.8] text-replica-green">
+          Más señal.
         </p>
       </motion.div>
 
       <motion.div
-        className="absolute right-12 top-[45%] hidden w-[32%] border border-replica-line bg-white/86 p-5 backdrop-blur lg:block"
+        className="absolute bottom-8 left-7 z-20 max-w-[380px] md:bottom-10 md:left-10"
         style={{ x: layerOneX, y: layerTwoY }}
-        animate={{ y: [0, 9, 0] }}
-        transition={{ duration: 6.8, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="mb-7 flex items-center justify-between">
-          <span className="label">Medimos</span>
-          <span className="text-xs font-black text-[#C98A00]">02</span>
-        </div>
-        <div className="grid grid-cols-3 gap-2">
-          {[42, 72, 58].map((height, index) => (
-            <motion.span
-              key={height}
-              className="block rounded-full bg-replica-green"
-              style={{ height }}
-              animate={{ scaleY: [0.72, 1, 0.72] }}
-              transition={{ duration: 1.8, repeat: Infinity, delay: index * 0.18 }}
-            />
-          ))}
-        </div>
+        <span className="label text-white/48">Sistema creativo</span>
+        <p className="mt-4 text-xl font-bold leading-8 text-white/78 md:text-2xl md:leading-9">
+          Estrategia, contenido y datos trabajando como una sola máquina de crecimiento.
+        </p>
       </motion.div>
 
       <motion.div
-        className="absolute bottom-8 left-8 w-[42%] min-w-[240px] border border-replica-line bg-replica-mist/90 p-5 backdrop-blur"
+        className="absolute right-[-4rem] top-[-3rem] hidden size-[25rem] rounded-full border border-white/20 bg-white/[0.06] backdrop-blur-sm md:block"
         style={{ x: layerTwoX, y: layerOneY }}
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ rotate: [0, 16, 0], scale: [1, 1.04, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       >
-        <span className="label">Ejecutamos</span>
-        <div className="mt-8 space-y-3">
-          <div className="h-3 w-3/4 rounded-full bg-replica-accent/75" />
-          <div className="h-3 w-1/2 rounded-full bg-replica-green" />
-          <div className="h-3 w-5/6 rounded-full bg-replica-accent/18" />
-        </div>
+        <div className="absolute inset-10 rounded-full border border-replica-green/45" />
+        <div className="absolute inset-24 rounded-full bg-replica-green/70 blur-xl" />
       </motion.div>
 
       <motion.div
-        className="absolute bottom-10 right-8 grid size-36 place-items-center rounded-full border border-replica-line bg-white/78 text-center backdrop-blur"
-        style={{ x: layerOneX, y: layerTwoY }}
-        animate={{ rotate: [0, 4, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-16 right-7 z-10 hidden h-40 w-64 items-end gap-2 opacity-85 md:flex"
+        style={{ x: layerTwoX, y: layerOneY }}
       >
-        <div>
-          <div className="text-3xl font-black text-replica-accent">Data</div>
-          <div className="mt-1 text-[10px] font-black uppercase tracking-[0.22em] text-replica-dark/60">guía</div>
-        </div>
+        {[46, 82, 58, 132, 104, 72].map((height, index) => (
+          <motion.span
+            key={height}
+            className="block flex-1 rounded-full bg-replica-green"
+            style={{ height }}
+            animate={{ scaleY: [0.64, 1, 0.64] }}
+            transition={{ duration: 2.1, repeat: Infinity, delay: index * 0.13, ease: "easeInOut" }}
+          />
+        ))}
       </motion.div>
 
-      <div className="absolute left-1/2 top-1/2 grid size-32 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-replica-line bg-white/72 backdrop-blur">
+      <div className="absolute left-[66%] top-[54%] z-[1] grid size-32 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/24 bg-white/10 backdrop-blur">
         <motion.div
           className="size-5 rounded-full bg-[#C98A00]"
           animate={{ scale: [1, 1.8, 1], opacity: [1, 0.28, 1] }}

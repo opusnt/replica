@@ -51,7 +51,7 @@ body {
   }
 
   .big-title {
-    @apply text-[clamp(3.5rem,9vw,9.5rem)] font-black leading-[0.96] tracking-normal text-replica-ink;
+    @apply text-[clamp(3.35rem,7.7vw,8.35rem)] font-black leading-[0.88] tracking-normal text-replica-ink;
   }
 
   .section-title {

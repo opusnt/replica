@@ -340,7 +340,7 @@ function RotatingSignals() {
   }, []);
 
   return (
-    <div className="relative mt-7 h-[clamp(3.6rem,7.8vw,7.2rem)] overflow-hidden pb-[0.18em]">
+    <div className="relative mt-8 h-[clamp(3.6rem,7.8vw,7.2rem)] overflow-hidden pb-[0.18em]">
       <AnimatePresence mode="wait">
         <motion.span
           key={signals[activeSignal]}
@@ -522,7 +522,7 @@ function CasesShowcase() {
           </div>
         </Reveal>
 
-        <div className="grid gap-5 lg:grid-cols-6">
+        <div className="grid gap-5 lg:grid-cols-6 xl:grid-cols-4">
           {cases.map((item, index) => (
             <motion.article
               key={item.brand}
@@ -533,9 +533,9 @@ function CasesShowcase() {
               whileHover={{ y: -10, rotate: index % 2 === 0 ? -0.8 : 0.8 }}
               className={`relative flex min-h-[360px] overflow-hidden border border-white/16 p-6 shadow-soft ${
                 index === 0
-                  ? "bg-white text-replica-ink lg:col-span-3"
+                  ? "bg-white text-replica-ink lg:col-span-3 xl:col-span-1"
                   : "bg-white/[0.08] text-white backdrop-blur lg:col-span-3 xl:col-span-1"
-              } ${index === 2 ? "lg:col-span-3 xl:col-span-1" : ""}`}
+              }`}
             >
               <div className={`absolute inset-x-0 top-0 h-2 ${index === 0 ? "bg-replica-green" : "bg-[#C98A00]"}`} />
               <div className="relative z-10 flex h-full w-full flex-col justify-between">
@@ -551,7 +551,7 @@ function CasesShowcase() {
                 </div>
                 <div>
                   <motion.div
-                    className={`max-w-full text-[clamp(4rem,7vw,7.4rem)] font-black leading-[0.9] ${
+                    className={`max-w-full whitespace-nowrap text-[clamp(2.9rem,5vw,5.15rem)] font-black leading-[0.9] ${
                       index === 0 ? "text-replica-ink" : "text-white"
                     }`}
                     initial={{ opacity: 0, y: 36 }}
@@ -631,7 +631,7 @@ export default function Home() {
                 Creamos marcas que no se <span className="text-[#C98A00]">ignoran</span>
               </motion.h1>
             </div>
-            <motion.p variants={fadeUp} className="mt-8 max-w-2xl text-xl leading-8 text-replica-dark/[0.78] md:text-2xl md:leading-9">
+            <motion.p variants={fadeUp} className="mt-7 max-w-2xl text-xl leading-8 text-replica-dark/[0.78] md:text-2xl md:leading-9">
               Estrategia, contenido, comunicación y performance para empresas que necesitan claridad, ejecución y crecimiento medible.
             </motion.p>
             <motion.div variants={fadeUp}>
@@ -730,11 +730,32 @@ export default function Home() {
         />
 
         <div className="container-pad relative z-10">
-          <Reveal className="mx-auto mb-16 max-w-4xl text-center">
-            <span className="label text-[#C98A00]">Qué hacemos</span>
-            <h2 className="mt-6 text-[clamp(2.7rem,6vw,6rem)] font-black leading-[0.95] tracking-normal text-replica-accent">
-              Servicios diseñados para <span className="text-[#C98A00]">implementarse</span>, no para archivarse
-            </h2>
+          <Reveal className="mb-16 grid gap-8 border-t border-replica-line pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+            <div>
+              <span className="label text-[#C98A00]">Qué hacemos</span>
+              <h2 className="mt-6 max-w-5xl text-[clamp(3.2rem,6.6vw,7.2rem)] font-black leading-[0.88] tracking-normal text-replica-accent">
+                Servicios que se implementan, no se archivan.
+              </h2>
+            </div>
+            <div className="relative overflow-hidden border border-replica-line bg-replica-card p-6 shadow-soft">
+              <div className="absolute -right-16 -top-16 size-48 rounded-full bg-replica-green/50 blur-3xl" />
+              <p className="relative z-10 text-[clamp(1.25rem,2vw,2rem)] font-bold leading-[1.28] text-[#4F8A84]">
+                Cada servicio entra al sistema con una pregunta simple: qué mueve para el negocio y cómo lo vamos a medir.
+              </p>
+              <div className="relative z-10 mt-8 grid grid-cols-3 gap-3">
+                {["Estrategia", "Ejecución", "Medición"].map((item, index) => (
+                  <motion.div
+                    key={item}
+                    className="border border-replica-line bg-replica-mist px-4 py-5"
+                    animate={{ y: [0, index === 1 ? -6 : 6, 0] }}
+                    transition={{ duration: 4 + index, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <span className="text-xs font-black text-[#C98A00]">0{index + 1}</span>
+                    <p className="mt-6 text-sm font-black uppercase tracking-[0.1em] text-replica-accent">{item}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </Reveal>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

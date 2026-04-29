@@ -484,42 +484,76 @@ function HeroVisual() {
 
 function CasesShowcase() {
   return (
-    <section id="resultados" className="bg-replica-paper py-24 md:py-36">
-      <div className="container-pad">
-        <Reveal className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+    <section id="resultados" className="relative overflow-hidden bg-replica-accent py-24 text-white md:py-36">
+      <div className="absolute inset-0 kinetic-grid opacity-10 mix-blend-screen" />
+      <motion.div
+        className="absolute -right-32 top-10 size-[28rem] rounded-full bg-replica-green/40 blur-3xl"
+        animate={{ scale: [1, 1.16, 1], x: [0, -28, 0], y: [0, 18, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute -left-40 bottom-10 size-[24rem] rounded-full bg-[#C98A00]/18 blur-3xl"
+        animate={{ scale: [1.05, 0.92, 1.05], x: [0, 34, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="container-pad relative z-10">
+        <Reveal className="mb-12 grid gap-8 border-t border-white/16 pt-8 lg:grid-cols-[0.72fr_1fr] lg:items-end">
           <div>
-            <span className="label">Resultados medibles</span>
-            <h2 className="section-title mt-6 max-w-5xl">
-              Pruebas antes que <span className="text-[#C98A00]">promesas</span>
+            <span className="label text-white/48">Resultados medibles</span>
+            <h2 className="mt-6 max-w-xl text-[clamp(2.6rem,5.4vw,5.7rem)] font-black leading-[0.96] tracking-normal text-white">
+              La creatividad también tiene que cerrar números.
             </h2>
           </div>
-          <p className="max-w-sm text-sm font-bold leading-6 text-replica-dark/60">
-            Métricas que importan cuando marketing y ventas miran el mismo tablero.
-          </p>
+          <div className="grid gap-4 md:grid-cols-3">
+            {["Medimos", "Aprendemos", "Optimizamos"].map((item, index) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                className="border border-white/16 bg-white/[0.06] px-5 py-6 backdrop-blur"
+              >
+                <span className="text-xs font-black text-[#C98A00]">0{index + 1}</span>
+                <p className="mt-8 text-xl font-black text-white">{item}</p>
+              </motion.div>
+            ))}
+          </div>
         </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-5 lg:grid-cols-6">
           {cases.map((item, index) => (
             <motion.article
               key={item.brand}
-              initial={{ opacity: 0, y: 42 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 42, rotate: index % 2 === 0 ? -1.2 : 1.2 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.7, delay: index * 0.08 }}
-              whileHover={{ y: -10 }}
-              className="relative flex min-h-[340px] overflow-hidden border border-replica-line bg-replica-card p-5 shadow-soft xl:col-span-1"
+              whileHover={{ y: -10, rotate: index % 2 === 0 ? -0.8 : 0.8 }}
+              className={`relative flex min-h-[360px] overflow-hidden border border-white/16 p-6 shadow-soft ${
+                index === 0
+                  ? "bg-white text-replica-ink lg:col-span-3"
+                  : "bg-white/[0.08] text-white backdrop-blur lg:col-span-3 xl:col-span-1"
+              } ${index === 2 ? "lg:col-span-3 xl:col-span-1" : ""}`}
             >
-              <div className="absolute inset-x-0 top-0 h-2 bg-replica-green" />
+              <div className={`absolute inset-x-0 top-0 h-2 ${index === 0 ? "bg-replica-green" : "bg-[#C98A00]"}`} />
               <div className="relative z-10 flex h-full w-full flex-col justify-between">
                 <div className="flex items-center justify-between gap-5">
-                  <span className="label">{item.brand}</span>
-                  <span className="rounded-full border border-replica-line px-3 py-2 text-xs font-black text-replica-dark/60">
+                  <span className={`label ${index === 0 ? "" : "text-white/45"}`}>{item.brand}</span>
+                  <span
+                    className={`rounded-full border px-3 py-2 text-xs font-black ${
+                      index === 0 ? "border-replica-line text-replica-dark/60" : "border-white/16 text-white/54"
+                    }`}
+                  >
                     {item.tag}
                   </span>
                 </div>
                 <div>
                   <motion.div
-                    className="max-w-full text-[clamp(3.65rem,6.2vw,6.4rem)] font-black leading-none text-replica-ink"
+                    className={`max-w-full text-[clamp(4rem,7vw,7.4rem)] font-black leading-[0.9] ${
+                      index === 0 ? "text-replica-ink" : "text-white"
+                    }`}
                     initial={{ opacity: 0, y: 36 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.5 }}
@@ -527,10 +561,16 @@ function CasesShowcase() {
                   >
                     {item.metric}
                   </motion.div>
-                  <p className="mt-4 max-w-md text-lg font-bold leading-7 text-replica-dark/[0.72] xl:text-xl">{item.detail}</p>
+                  <p
+                    className={`mt-4 max-w-md text-lg font-bold leading-7 xl:text-xl ${
+                      index === 0 ? "text-replica-dark/[0.72]" : "text-white/64"
+                    }`}
+                  >
+                    {item.detail}
+                  </p>
                 </div>
               </div>
-              <div className="absolute -bottom-20 -right-16 size-56 rounded-full bg-replica-green/30 blur-2xl" />
+              <div className={`absolute -bottom-20 -right-16 size-56 rounded-full blur-2xl ${index === 0 ? "bg-replica-green/30" : "bg-replica-green/18"}`} />
             </motion.article>
           ))}
           <motion.div
@@ -539,11 +579,12 @@ function CasesShowcase() {
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.7, delay: 0.24 }}
             whileHover={{ y: -10 }}
-            className="flex min-h-[340px] items-center justify-center overflow-hidden border border-replica-line bg-replica-accent p-8 text-white xl:col-span-1"
+            className="relative flex min-h-[360px] items-end overflow-hidden border border-replica-green/40 bg-replica-green p-8 text-replica-ink lg:col-span-6 xl:col-span-1"
           >
+            <div className="absolute -right-12 -top-12 size-44 rounded-full border border-replica-accent/18" />
+            <div className="absolute right-8 top-8 size-5 rounded-full bg-[#C98A00]" />
             <div>
-              <ReplicaLogo tone="light" size="footer" />
-              <p className="mt-8 max-w-sm text-2xl font-black leading-tight">
+              <p className="max-w-sm text-3xl font-black leading-tight">
                 Menos ruido. Más señales que se pueden medir.
               </p>
             </div>
